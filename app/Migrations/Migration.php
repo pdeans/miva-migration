@@ -3,6 +3,7 @@
 namespace App\Migrations;
 
 use App\Store;
+use pdeans\Http\Client;
 
 abstract class Migration
 {
@@ -51,21 +52,7 @@ abstract class Migration
 
 	public function remoteFileExists($url)
 	{
-		$ch = curl_init($url);
-
-		curl_setopt($ch, CURLOPT_NOBODY, true);
-
-		$res = curl_exec($ch);
-
-		if ($res === false) {
-			return false;
-		}
-
-		$status = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-		curl_close($ch);
-
-		return ($status === 200);
+		return ((new Client)->head($url)->getStatusCode() === 200);
 	}
 
 	public function downloadRemoteFile($url, $destination)

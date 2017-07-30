@@ -44,10 +44,10 @@
 			</section>
 		{% endif %}
 
-		{% if prv_res.xml %}
+		{% if prv_res.getBody() %}
 			<section class="section section-prv">
 				<h3 class="title">Last PRV Response</h3>
-				<pre><code class="language-xml">{{ prv_res.xml }}</code></pre>
+				<pre><code class="language-xml">{{ prv_res.getBody() }}</code></pre>
 			</section>
 		{% endif %}
 	</div>

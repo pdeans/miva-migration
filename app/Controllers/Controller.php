@@ -53,7 +53,7 @@ abstract class Controller
 		return $uri->getScheme().'://'.$request->getServerParam('HTTP_HOST').
 			($uri->getBasePath() ? rtrim($uri->getBasePath(), '/') : '').
 			'/'.ltrim($uri->getPath(), '/').
-			'?'.http_build_query($params);
+			(!empty($params) ? '?'.http_build_query($params) : '');
 	}
 
 	public function getProgressComplete($completed, $total)
@@ -74,20 +74,27 @@ abstract class Controller
 		}
 	}
 
-	public function logRequest($file_path, $request, $page, $total)
+	public function logRequest($file_path, $request, array $params)
 	{
 		// Create the directory if it does not exist
 		$this->checkOrCreateDirPath($file_path);
 
-		file_put_contents($file_path, $request);
+		file_put_contents(
+			$file_path,
+			'<!-- '.http_build_query($params).' -->'.PHP_EOL.$request
+		);
 	}
 
-	public function logResponse($file_path, $response, $page, $total)
+	public function logResponse($file_path, $response, array $params)
 	{
 		// Create the directory if it does not exist
 		$this->checkOrCreateDirPath($file_path);
 
-		file_put_contents($file_path, "$page / $total".$response.PHP_EOL, FILE_APPEND);
+		file_put_contents(
+			$file_path,
+			'<!-- '.http_build_query($params).' -->'.PHP_EOL.$response.PHP_EOL,
+			FILE_APPEND
+		);
 	}
 
 	public function clearDir($dir_path)

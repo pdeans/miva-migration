@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Store;
 use Interop\Container\ContainerInterface;
+use pdeans\Http\Client as HttpClient;
 use pdeans\Miva\Provision\Manager as Provision;
 use Slim\Interfaces\RouterInterface;
 use Slim\Views\Twig;
@@ -96,5 +97,8 @@ return [
 		);
 
 		return $twig;
+	},
+	HttpClient::class => function (ContainerInterface $c) {
+		return new HttpClient;
 	},
 ];

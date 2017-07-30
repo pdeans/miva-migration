@@ -67,13 +67,14 @@ class OrderController extends Controller
 		// Provision request
 		if ($xml) {
 			$this->logRequest(
-				$this->log_path.'/convert/requests/'.sprintf('%0'.strlen($params['total']).'d.xml',
-				$params['page']), $xml, $params['page'], $params['total']
+				$this->log_path.'/convert/requests/'.sprintf('%0'.strlen($params['total']).'d.xml', $params['page']),
+				$xml,
+				$params
 			);
 
 			$prv_res = $this->prv->send($xml);
 
-			$this->logResponse($this->log_path.'/convert/responses.xml', $response, $params['page'], $params['total']);
+			$this->logResponse($this->log_path.'/convert/responses.xml', $prv_res->getBody(), $params);
 		}
 
 		$this->log($this->log_path.'/convert/run.txt', 'Completed migration on '.$params['page'].' of '.$params['total']);
