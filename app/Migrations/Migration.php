@@ -55,8 +55,8 @@ abstract class Migration
 		return ((new Client)->head($url)->getStatusCode() === 200);
 	}
 
-	public function downloadRemoteFile($url, $destination)
+	public function downloadFile($url, $download_path)
 	{
-		copy($url, $destination);
+		return file_put_contents($download_path, fopen($url, 'rb'));
 	}
 }
