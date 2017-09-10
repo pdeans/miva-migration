@@ -56,6 +56,11 @@ abstract class Controller
 			(!empty($params) ? '?'.http_build_query($params) : '');
 	}
 
+	public function getNextAction(Request $request, $uri)
+	{
+		return rtrim($request->getUri()->getBaseUrl(), '/').$uri;
+	}
+
 	public function getProgressComplete($completed, $total)
 	{
 		return  round(((float)$completed / $total) * 100, 2);
@@ -124,7 +129,16 @@ abstract class Controller
 		$check_path = (pathinfo($path, PATHINFO_EXTENSION) ? dirname($path) : $path);
 
 		if (!file_exists($check_path)) {
-			mkdir($check_path, '0777', true);
+			$dir_names = explode('/', $check_path);
+			$dir       = '';
+
+			foreach ($dir_names as $dir_name) {
+				$dir .= $dir_name.DIRECTORY_SEPARATOR;
+
+				if (!is_dir($dir) && $dir) {
+					mkdir($dir, 0777);
+				}
+			}
 		}
 	}
 }
