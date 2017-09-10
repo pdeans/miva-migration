@@ -57,6 +57,13 @@ abstract class Migration
 
 	public function downloadFile($url, $download_path)
 	{
-		return file_put_contents($download_path, fopen($url, 'rb'));
+		return file_put_contents(
+			$download_path,
+			file_get_contents($url, false, stream_context_create([
+				'http' => [
+					'header' => "User-Agent:MyAgent/1.0\r\n",
+				],
+			]))
+		);
 	}
 }
