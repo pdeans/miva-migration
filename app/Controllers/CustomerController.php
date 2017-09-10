@@ -7,6 +7,7 @@ use App\Models\Customer;
 use pdeans\Miva\Provision\Manager as Provision;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Interfaces\RouterInterface as Router;
 use Slim\Views\Twig;
 
 class CustomerController extends Controller
@@ -15,15 +16,23 @@ class CustomerController extends Controller
 	protected $log_path;
 	protected $migrate;
 	protected $prv;
+	protected $router;
 	protected $title;
 	protected $view;
 
-	public function __construct(Twig $view, Provision $prv, Customer $customer, CustomerMigration $migrate)
+	public function __construct(
+		Router $router,
+		Twig $view,
+		Provision $prv,
+		Customer $customer,
+		CustomerMigration $migrate
+	)
 	{
 		$this->customer = $customer;
 		$this->log_path = LOG_PATH.'/customers';
 		$this->migrate  = $migrate;
 		$this->prv      = $prv;
+		$this->router   = $router;
 		$this->title    = 'Customer Migration';
 		$this->view     = $view;
 	}
