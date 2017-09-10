@@ -20,8 +20,8 @@ return [
 	CategoryMigration::class => function (ContainerInterface $c) {
 		$category_migration = new CategoryMigration(
 			$c->get(Provision::class),
-			$c->get(Category::class
-		));
+			$c->get(Category::class)
+		);
 
 		$category_migration->setStore($c->get(Store::class));
 
