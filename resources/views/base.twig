@@ -28,6 +28,10 @@
 			{% if action %}
 				<h2 class="action">{{ action | raw }}</h2>
 			{% endif %}
+
+			{% if next_action %}
+				<p style="margin-top: 12px; text-align: center;">Next Action: <a href="{{ next_action }}">{{ next_action }}</a></p>
+			{% endif %}
 		</section>
 
 		{% if progress %}
