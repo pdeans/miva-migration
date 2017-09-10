@@ -3,6 +3,7 @@
 namespace App\Migrations;
 
 use App\Store;
+use Exception;
 use pdeans\Http\Client;
 
 abstract class Migration
@@ -27,7 +28,14 @@ abstract class Migration
 
 	public function remoteFileExists($url)
 	{
-		return ((new Client)->head($url)->getStatusCode() === 200);
+		try {
+			return (new Client)->head($url)->getStatusCode() === 200;
+		}
+		catch (Exception $e) {
+			return false;
+		}
+
+		return false;
 	}
 
 	public function downloadFile($url, $download_path)
