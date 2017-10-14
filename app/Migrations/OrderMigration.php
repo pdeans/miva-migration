@@ -3,7 +3,7 @@
 namespace App\Migrations;
 
 use App\Migrations\Contracts\MigrationInterface;
-use App\Models\Order;
+use App\Models\Orders\Order;
 use pdeans\Miva\Provision\Manager as Provision;
 
 class OrderMigration extends Migration implements MigrationInterface

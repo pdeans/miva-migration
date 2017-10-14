@@ -3,7 +3,7 @@
 namespace App\Migrations;
 
 use App\Migrations\Contracts\MigrationInterface;
-use App\Models\Customer;
+use App\Models\Customers\Customer;
 use pdeans\Miva\Provision\Manager as Provision;
 
 class CustomerMigration extends Migration implements MigrationInterface

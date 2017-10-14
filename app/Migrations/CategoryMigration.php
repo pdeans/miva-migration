@@ -3,7 +3,7 @@
 namespace App\Migrations;
 
 use App\Migrations\Contracts\MigrationInterface;
-use App\Models\Category;
+use App\Models\Categories\Category;
 use pdeans\Miva\Provision\Manager as Provision;
 
 class CategoryMigration extends Migration implements MigrationInterface

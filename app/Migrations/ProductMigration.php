@@ -3,7 +3,7 @@
 namespace App\Migrations;
 
 use App\Migrations\Contracts\MigrationInterface;
-use App\Models\Product;
+use App\Models\Products\Product;
 use pdeans\Miva\Provision\Manager as Provision;
 
 class ProductMigration extends Migration implements MigrationInterface

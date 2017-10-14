@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Migrations\CategoryMigration;
-use App\Models\Category;
+use App\Models\Categories\Category;
 use pdeans\Miva\Provision\Manager as Provision;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;

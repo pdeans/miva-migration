@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Migrations\CustomerMigration;
-use App\Models\Customer;
+use App\Models\Customers\Customer;
 use pdeans\Miva\Provision\Manager as Provision;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;

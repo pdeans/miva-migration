@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Migrations\OrderMigration;
-use App\Models\Order;
+use App\Models\Orders\Order;
 use pdeans\Miva\Provision\Manager as Provision;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
