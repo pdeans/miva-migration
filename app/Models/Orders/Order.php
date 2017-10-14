@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Orders;
+
+use App\Models\Model;
 
 class Order extends Model
 {

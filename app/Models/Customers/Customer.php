@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Customers;
+
+use App\Models\Model;
 
 class Customer extends Model
 {
