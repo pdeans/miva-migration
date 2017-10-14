@@ -9,6 +9,7 @@ use App\Models\Products\Product;
 use App\Models\Customers\Customer;
 use App\Models\Orders\Order;
 use App\Store;
+use App\Utilities\Loggers\FileLogger;
 use Interop\Container\ContainerInterface;
 use pdeans\Http\Client as HttpClient;
 use pdeans\Miva\Provision\Manager as Provision;
@@ -76,6 +77,9 @@ return [
 			'root'     => $c->get('store.root'),
 			'graphics' => $c->get('store.graphics'),
 		]);
+	},
+	FileLogger::class => function (ContainerInterface $c) {
+		return new FileLogger(LOG_PATH);
 	},
 	Provision::class => function (ContainerInterface $c) {
 		return new Provision(

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Migrations\CategoryMigration;
 use App\Models\Categories\Category;
+use App\Utilities\Loggers\FileLogger;
 use pdeans\Miva\Provision\Manager as Provision;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -13,7 +14,7 @@ use Slim\Views\Twig;
 class CategoryController extends Controller
 {
 	protected $category;
-	protected $log_path;
+	protected $logger;
 	protected $migrate;
 	protected $prv;
 	protected $router;
@@ -22,6 +23,7 @@ class CategoryController extends Controller
 
 	public function __construct(
 		Router $router,
+		FileLogger $logger,
 		Twig $view,
 		Provision $prv,
 		Category $category,
@@ -29,12 +31,14 @@ class CategoryController extends Controller
 	)
 	{
 		$this->category = $category;
-		$this->log_path = LOG_PATH.'/categories';
 		$this->migrate  = $migrate;
 		$this->prv      = $prv;
 		$this->router   = $router;
 		$this->title    = 'Category Migration';
 		$this->view     = $view;
+
+		$this->logger = $logger;
+		$this->logger->setBaseDir('categories');
 	}
 
 	public function index(Request $request, Response $response)
@@ -47,6 +51,8 @@ class CategoryController extends Controller
 
 	public function convert(Request $request, Response $response)
 	{
+		$this->logger->setDir(__FUNCTION__);
+
 		// Configure pagination params
 		$params = $this->getParams($request->getQueryParams(), true);
 
@@ -55,12 +61,12 @@ class CategoryController extends Controller
 		}
 
 		if ($params['page'] === 1) {
-			$this->clearDir($this->log_path.'/convert/requests');
-			$this->clearLog($this->log_path.'/convert/run.txt');
-			$this->clearLog($this->log_path.'/convert/responses.xml');
+			$this->logger->clearDir('requests');
+			$this->logger->clearFile('run.txt');
+			$this->logger->clearFile('responses.xml');
 		}
 
-		$this->log($this->log_path.'/convert/run.txt', 'Starting migration on '.$params['page'].' of '.$params['total']);
+		$this->logger->write('run.txt', 'Starting migration on page '.$params['page'].' of '.$params['total']);
 
 		// Get category data
 		$categories = $this->category
@@ -74,22 +80,22 @@ class CategoryController extends Controller
 		$prv_res = null;
 
 		// Provision request
-		if ($xml) {
-			$this->logRequest(
-				$this->log_path.'/convert/requests/'.sprintf('%0'.strlen($params['total']).'d.xml', $params['page']),
+		if ($xml !== '') {
+			$this->logger->writeRequest(
+				'requests/'.sprintf('%0'.strlen($params['total']).'d.xml', $params['page']),
 				$xml,
 				$params
 			);
 
 			$prv_res = $this->prv->send($xml);
 
-			$this->logResponse($this->log_path.'/convert/responses.xml', $prv_res->getBody(), $params);
+			$this->logger->writeResponse('responses.xml', $prv_res->getBody(), $params);
 		}
 
-		$this->log($this->log_path.'/convert/run.txt', 'Completed migration on '.$params['page'].' of '.$params['total']);
+		$this->logger->write('run.txt', 'Completed migration on page '.$params['page'].' of '.$params['total']);
 
 		$prog_complete = $this->getProgressComplete($params['page'], $params['total']);
-		$is_redirect   = $request->getQueryParam('redirect', false);
+		$is_redirect   = (bool)$request->getQueryParam('redirect', false);
 
 		if ($params['page'] >= $params['total']) {
 			if ($is_redirect) {
@@ -111,7 +117,7 @@ class CategoryController extends Controller
 
 		$next_url = $this->getNextUrl($request, $params);
 
-		$this->log($this->log_path.'/convert/run.txt', 'Redir to '.$next_url);
+		$this->logger->write('run.txt', 'Redir to '.$next_url);
 
 		// Continue as redirect (generally through cli call)
 		if ($is_redirect) {

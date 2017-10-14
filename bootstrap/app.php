@@ -1,7 +1,6 @@
 <?php
 
 use App\App;
-use App\Utilities\Log\Logger;
 use Dotenv\Dotenv;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -18,7 +17,5 @@ $dbh = new Capsule;
 $dbh->addConnection($db_config);
 $dbh->setAsGlobal();
 $dbh->bootEloquent();
-
-$logger = new Logger(LOG_PATH);
 
 require_once APP_PATH.'/routes.php';
