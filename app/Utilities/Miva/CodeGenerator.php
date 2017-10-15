@@ -15,21 +15,35 @@ class CodeGenerator
 		$this->setCase($case);
 	}
 
-	protected function setMaxLength($max_length)
+	public function setMaxLength($max_length)
 	{
 		$this->max_length = (int)$max_length;
+
+		return $this;
 	}
 
-	protected function setSeparator($separator)
+	public function getMaxLength()
+	{
+		return $this->max_length;
+	}
+
+	public function setSeparator($separator)
 	{
 		if (!preg_match('/[^\w-]+/', $separator)) {
 			throw new Exception("Invalid separator value '$separator'. Valid separators: 'a-z', 'A-Z', '0-9', '_', or '-'.");
 		}
 
 		$this->separator = $separator;
+
+		return $this;
 	}
 
-	protected function setCase($case)
+	public function getSeparator()
+	{
+		return $this->separator;
+	}
+
+	public function setCase($case)
 	{
 		$case = strtolower($case);
 
@@ -44,16 +58,8 @@ class CodeGenerator
 		}
 
 		$this->case = $case;
-	}
 
-	public function getMaxLength()
-	{
-		return $this->max_length;
-	}
-
-	public function getSeparator()
-	{
-		return $this->separator;
+		return $this;
 	}
 
 	public function getCase()
@@ -61,31 +67,8 @@ class CodeGenerator
 		return $this->case;
 	}
 
-	public function withMaxLength($max_length)
+	public function create($value)
 	{
-		$this->setMaxLength($max_length);
-
-		return $this;
-	}
-
-	public function withSeparator($separator)
-	{
-		$this->setSeparator($separator);
-
-		return $this;
-	}
-
-	public function withCase($case)
-	{
-		$this->setCase($case);
-
-		return $this;
-	}
-
-	public function toCode($value)
-	{
-		$value = trim($value);
-
 		$find = [
 			'/[^\w\-]+/',
 			'/[\-]{2,}/',
@@ -102,7 +85,7 @@ class CodeGenerator
 			$this->separator,
 		];
 
-		$code = preg_replace('/[^\w\-]+$/', '', substr(preg_replace($find, $replace, $value), 0, $this->getMaxLength()));
+		$code = preg_replace('/^[^a-z\d]+|[^a-z\d]+$/i', '', substr(preg_replace($find, $replace, trim($value)), 0, $this->getMaxLength()));
 
 		if ($this->case === 'lowercase') {
 			return strtolower($code);
