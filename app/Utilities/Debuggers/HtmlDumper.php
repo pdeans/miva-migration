@@ -8,7 +8,7 @@ class HtmlDumper extends SymfonyHtmlDumper
 {
 	// Styling for browser output
 	protected $styles = [
-		'default' => 'background-color:#fff; color:#24292e; line-height:1.2em; font-weight:normal; font:13px Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:100000',
+		'default' => 'background-color:#fff; color:#24292e; line-height:1.428571429; font-weight:normal; font:12px Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:100000',
 		'num' => 'color:#005cc5',
 		'const' => 'color:#005cc5',
 		'str' => 'color:#032f62',

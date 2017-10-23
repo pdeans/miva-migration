@@ -29,7 +29,7 @@ class CodeGenerator
 
 	public function setSeparator($separator)
 	{
-		if (!preg_match('/[^\w-]+/', $separator)) {
+		if (preg_match('/[^\w-]+/', $separator)) {
 			throw new Exception("Invalid separator value '$separator'. Valid separators: 'a-z', 'A-Z', '0-9', '_', or '-'.");
 		}
 
@@ -50,8 +50,8 @@ class CodeGenerator
 		$valid_case_values = [
 			'none',
 			'lowercase',
-			'uppercase'
-		]
+			'uppercase',
+		];
 
 		if (!in_array($case, $valid_case_values)) {
 			throw new Exception("Invalid case value '$case'. Valid case values: ".implode(', ', $valid_case_values));
