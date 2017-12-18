@@ -4,12 +4,9 @@
 
 This PHP based MVC web application framework skeleton was created to help aid in rapid development of Miva data migrations and integrations by establishing a common workflow.
 
-The framework utilizes the [Slim](https://www.slimframework.com/) micro-framework to do most of the heavy lifting. Please note that prior knowledge of [Slim](https://www.slimframework.com/), as well as the packages listed below, are almost certainly a prerequisite in order to get up and running with the framework in a productive manner.
+The framework utilizes the elegant [Laravel](https://laravel.com/) framework to do most of the heavy lifting. Please note that prior knowledge of [Laravel](https://laravel.com/), as well as the packages listed below, are almost certainly a prerequisite in order to get up and running with the framework in a productive manner.
 
-- [Illuminate Database](https://github.com/illuminate/database) - Database Layer.
 - [Miva Remote Provision](https://github.com/pdeans/miva-provision) - Helper library for connecting and interacting with the Miva remote provisioning module.
-- [PHP-DI integration with Slim](http://php-di.org/doc/frameworks/slim.html) - Dependency injection manager.
-- [Slim Framework Twig View](https://github.com/slimphp/Twig-View) - Slim Framework view helper built on top of the Twig templating component.
 - [PHP dotenv](https://github.com/vlucas/phpdotenv) - PHP version of the original Ruby dotenv; essentially loads environment variables from a `.env` file.
 
 ### Installation
@@ -26,7 +23,7 @@ $ composer create-project pdeans/miva-migration
 
 #### Web Root/Public Directory
 
-After installing the framework, you should configure your server's web root to point to the `/httpdocs` directory if it is not setup already. The `index.php` file in this directory serves as the front controller for all HTTP requests entering your application.
+After installing the framework, you should configure your server's web root to point to the `/public` directory if it is not setup already. The `index.php` file in this directory serves as the front controller for all HTTP requests entering the application.
 
 #### Configuration Files
 

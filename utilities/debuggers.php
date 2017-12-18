@@ -1,6 +1,6 @@
 <?php
 
-use App\Utilities\Debuggers\Dumper;
+use pdeans\Debuggers\Vardumper\Dumper;
 
 // Debug print function
 function dp($value, $label = '')
@@ -8,14 +8,14 @@ function dp($value, $label = '')
 	(new Dumper)->dump($value, $label);
 }
 
-// Debug print (old) function -- is deprecrated in place of Symfony var-dumper
-function dpo($data, $label = '')
+// Debug print function for XML
+function dpx($xml, $label = '')
 {
-	echo ($label !== '' ? $label.'<br>' : ''), '<pre>', (is_array($data) || is_object($data) ? print_r($data) : $data), '</pre><br>';
+	echo ($label !== '' ? $label.'<br>' : ''), '<pre>', htmlentities($xml), '</pre><br>';
 }
 
-// Debug print function for XML
-function dpx($data, $label = '')
+// Debug print function (deprecrated)
+function dpo($value, $label = '')
 {
-	echo ($label !== '' ? $label.'<br>' : ''), '<pre>', htmlentities($data), '</pre><br>';
+	echo ($label !== '' ? $label.'<br>' : ''),'<pre>', (is_array($value) || is_object($value) ? print_r($value) : $value), '</pre><br>';
 }
