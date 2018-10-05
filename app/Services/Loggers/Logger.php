@@ -9,9 +9,7 @@ abstract class Logger
 
 	public function __construct($log_dir = '', $file_append = true)
 	{
-		if ($log_dir !== '') {
-			$this->setDir($log_dir);
-		}
+		$this->setDir($log_dir);
 
 		$this->file_append = $file_append;
 	}
@@ -32,11 +30,8 @@ abstract class Logger
 
 	public function clearDir($dir = null)
 	{
-		if ($dir === null) {
-			$dir = $this->log_dir;
-		}
-
-		$files = glob(rtrim($dir, '/\\').'/*');
+		$full_path = $this->log_dir.ltrim($dir, '/\\');
+		$files     = glob(rtrim($full_path, '/\\').'/*');
 
 		foreach ($files as $file) {
 			if (is_file($file)) {
@@ -49,15 +44,17 @@ abstract class Logger
 
 	public function clearFile($file, $delete_file = false)
 	{
-		if (!is_file($file)) {
+		$full_path = $this->log_dir.ltrim($file, '/\\');
+
+		if (!is_file($full_path)) {
 			return false;
 		}
 
 		if ($delete_file) {
-			unlink($file);
+			unlink($full_path);
 		}
 		else {
-			file_put_contents($file, '');
+			file_put_contents($full_path, '');
 		}
 
 		return $this;
