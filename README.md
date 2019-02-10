@@ -6,7 +6,7 @@ This PHP based MVC web application framework skeleton was created to help aid in
 
 The framework utilizes the elegant [Laravel](https://laravel.com/) framework to do most of the heavy lifting. Please note that prior knowledge of [Laravel](https://laravel.com/), as well as the packages listed below, are almost certainly a prerequisite in order to get up and running with the framework in a productive manner.
 
-- [Miva Remote Provision](https://github.com/pdeans/miva-provision) - Helper library for connecting and interacting with the Miva remote provisioning module.
+- [Miva JSON Api PHP Library](https://github.com/pdeans/miva-provision) - Helper library for interacting with the Miva JSON API.
 - [PHP dotenv](https://github.com/vlucas/phpdotenv) - PHP version of the original Ruby dotenv; essentially loads environment variables from a `.env` file.
 
 ### Installation
