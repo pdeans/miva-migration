@@ -8,6 +8,7 @@ use pdeans\Http\Client;
 
 abstract class Conversion
 {
+	protected $http_client = null;
 	protected $store = null;
 
 	public function setStore(Store $store)
@@ -27,8 +28,12 @@ abstract class Conversion
 
 	public function remoteFileExists($url)
 	{
+		if (!$this->http_client instanceof Client) {
+			$this->http_client = new Client;
+		}
+
 		try {
-			return (new Client)->head($url)->getStatusCode() === 200;
+			return $this->http_client->head($url)->getStatusCode() === 200;
 		}
 		catch (Exception $e) {
 			return false;
