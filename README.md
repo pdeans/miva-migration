@@ -35,7 +35,7 @@ The following lists the main framework components included with each version, as
 
 **Version 3:**
 
-- Laravel 5.7
+- Laravel 5.*
 - Miva JSON API Library
 - PHP 7.1.3+
 
