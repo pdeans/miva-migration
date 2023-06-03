@@ -1,3 +1,5 @@
+> This package is **abandoned** and no longer maintained.
+
 ## Miva Data Migration / Integration MVC Framework Skeleton
 
 ### About the Framework
